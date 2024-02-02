@@ -1,20 +1,18 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { useRef, useState, useEffect, useMemo, MouseEventHandler } from "react";
 import { toast } from "react-hot-toast";
-import DropDown, { VibeType } from "../components/DropDown";
-import LoadingDots from "../components/LoadingDots";
-import { TwitterShareButton } from "react-twitter-embed";
 import debounce from "lodash.debounce";
 
 import { postAPI } from "../utils/fetch";
 import { streamingAPI } from "../utils/streaming";
-import { isURL, isSubstackDraft } from "../utils/utils";
 
 const Home: NextPage = () => {
+  const [rant, setRant] = useState<string>("");
+
   function submitRant() {
     console.log("hello");
+    alert(rant);
   }
   return (
     <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
@@ -46,6 +44,8 @@ const Home: NextPage = () => {
 
           <div className="mt-4t s">
             <textarea
+              value={rant} // ...force the input's value to match the state variable...
+              onChange={(e) => setRant(e.target.value)}
               className="w-full p-2 border rounded-md bg-white text-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:outline-none transition duration-150 ease-in-out"
               rows="5"
               placeholder="List all the things you need to do..."
@@ -62,20 +62,6 @@ const Home: NextPage = () => {
     </div>
   );
 };
-
-{
-  /* 
-      adjective
-filled or covered with water; flooded; inundated:
-The most important thing we learned is how to paddle a swamped canoe back in to shore.
-He saw lines of people walking along the swamped road, completely drenched.
-
-overwhelmed, especially with an excess of something:
-The website outage was most likely caused by swamped servers.
-Whether it's helping a swamped colleague with a project or buying a stranger a cup of coffee, any small act of kindness can boost happiness. */
-}
-
-// When you have too many thigs on your mind
 
 export default Home;
 
